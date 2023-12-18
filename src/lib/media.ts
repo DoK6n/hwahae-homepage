@@ -3,7 +3,7 @@ export const breakpoints = {
   tablet: 769,
   desktop: 1024,
   wide: 1200,
-  xwide: 1440,
+  xwide: 1500,
 } as const
 
 export type BreakpointName = keyof typeof breakpoints

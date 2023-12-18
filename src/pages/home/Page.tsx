@@ -82,8 +82,6 @@ export default function Home() {
   const [topContentsOpacity, setTopContentsOpacity] = useState(1)
 
   const handleScroll = () => {
-    // console.log('scrolling', window.scrollY)
-
     if (window.scrollY > 0) {
       /**
        * 최대 스크롤 값(2038)에 도달했을 때의 scale 값(1.5)과 시작 scale 값(1.0)의 차이를 계산
@@ -179,6 +177,21 @@ export default function Home() {
       const newOpacity = calculateOpacity(scrollY, TOP_CONTENTS_SCROLL_RANGE)
       setTopContentsOpacity(newOpacity)
     }
+
+    // TOP Contents 종료시 투명화 하는 계산 로직
+    const TOP_CONTENTS_OPASITY_RANGE = {
+      endScrollY: 3880,
+    } as const
+
+    if (window.scrollY >= TOP_CONTENTS_OPASITY_RANGE.endScrollY) {
+      setTopContentsOpacity(0)
+      if (!hasBg) {
+        setHasBg(true)
+      }
+    } else {
+      const opacity = 1 - scrollY / TOP_CONTENTS_OPASITY_RANGE.endScrollY
+      setTopContentsOpacity(Math.max(opacity, 0)) // opacity가 0보다 작아지지 않도록
+    }
   }
 
   useEffect(() => {
@@ -248,7 +261,7 @@ export default function Home() {
             <MainVisual style={{ height: '4477.5px' }}>
               {/* top contents의 opacity를 1 -> 0 으로 */}
               {/* 0이 되는 순간 setHasBg(true) */}
-              <TopContents>
+              <TopContents opacity={topContentsOpacity}>
                 <TopContentsInner style={{ display: 'block' }}>
                   <div
                     style={{ height: '100%', transform: `scale3d(${scale}, ${scale}, ${scale})` }}
@@ -323,20 +336,19 @@ export default function Home() {
             </MainVisual>
 
             <section className='product-info'>
-              <div className='info-inner'>
-                <h3 className='info-title'>화해는 지금</h3>
-                <p className='info-desc'>
+              <InfoInner>
+                <InfoTitle>화해는 지금</InfoTitle>
+                <InfoDesc>
                   대한민국 20·30 여성의 1/2 이상 사용하는 서비스로,
                   <br />
                   내가 찾는 모든 뷰티 정보를 제공합니다.
-                </p>
-                <div className='info-content'>
-                  <div className='info-counting'>
-                    <ul className='info-counting-list'>
-                      <li className='info-counting-item' style={{ transform: 'none' }}>
-                        <div className='counting-title' aria-hidden='true'>
-                          <div
-                            className='counting-icon'
+                </InfoDesc>
+                <InfoContent>
+                  <InfoCounting>
+                    <InfoCountingList>
+                      <InfoCountingItem style={{ transform: 'none' }}>
+                        <CountingTitle aria-hidden='true'>
+                          <CountingIcon
                             aria-hidden='true'
                             style={{
                               width: '12px',
@@ -345,32 +357,27 @@ export default function Home() {
                               backgroundColor: 'white',
                               transform: 'none',
                             }}
-                          ></div>
-                          <span
-                            className='counting-txt'
+                          />
+                          <CountingText
                             style={{
                               color: 'rgb(200, 200, 200)',
                               transform: 'translate3d(45px, 0px, 0px)',
                             }}
                           >
                             함께하는 브랜드
-                          </span>
-                        </div>
-                        <div className='counting-index'>
+                          </CountingText>
+                        </CountingTitle>
+                        <CountingIndex>
                           <div
                             style={{ height: '0px', transform: 'translate3d(0px, -100px, 0px)' }}
                           >
-                            <div></div>
+                            <div />
                           </div>
-                        </div>
-                      </li>
-                      <li
-                        className='info-counting-item'
-                        style={{ transform: 'translate3d(0px, 100px, 0px)' }}
-                      >
-                        <div className='counting-title selected' aria-hidden='true'>
-                          <div
-                            className='counting-icon'
+                        </CountingIndex>
+                      </InfoCountingItem>
+                      <InfoCountingItem style={{ transform: 'translate3d(0px, 100px, 0px)' }}>
+                        <CountingTitle selected={true} aria-hidden='true'>
+                          <CountingIcon
                             aria-hidden='true'
                             style={{
                               width: '130px',
@@ -379,30 +386,25 @@ export default function Home() {
                               backgroundColor: 'rgb(94, 223, 223)',
                               transform: 'translate3d(-60px, -30px, 0px)',
                             }}
-                          ></div>
-                          <span
-                            className='counting-txt'
+                          ></CountingIcon>
+                          <CountingText
                             style={{
                               color: 'rgb(33, 37, 41)',
                               transform: 'translate3d(30px, 0px, 0px)',
                             }}
                           >
                             누적 다운로드
-                          </span>
-                        </div>
-                        <div className='counting-index'>
+                          </CountingText>
+                        </CountingTitle>
+                        <CountingIndex>
                           <div style={{ height: '100px', transform: 'none' }}>
                             <div>11,067,713</div>
                           </div>
-                        </div>
-                      </li>
-                      <li
-                        className='info-counting-item'
-                        style={{ transform: 'translate3d(0px, 220px, 0px)' }}
-                      >
-                        <div className='counting-title next-selected' aria-hidden='true'>
-                          <div
-                            className='counting-icon'
+                        </CountingIndex>
+                      </InfoCountingItem>
+                      <InfoCountingItem style={{ transform: 'translate3d(0px, 220px, 0px)' }}>
+                        <CountingTitle className='counting-title next-selected' aria-hidden='true'>
+                          <CountingIcon
                             aria-hidden='true'
                             style={{
                               width: '12px',
@@ -411,32 +413,27 @@ export default function Home() {
                               backgroundColor: 'white',
                               transform: 'none',
                             }}
-                          ></div>
-                          <span
-                            className='counting-txt'
+                          ></CountingIcon>
+                          <CountingText
                             style={{
                               color: 'rgb(200, 200, 200)',
                               transform: 'translate3d(45px, 0px, 0px)',
                             }}
                           >
                             사용자 리뷰
-                          </span>
-                        </div>
-                        <div className='counting-index'>
+                          </CountingText>
+                        </CountingTitle>
+                        <CountingIndex>
                           <div
                             style={{ height: '0px', transform: 'translate3d(0px, -100px, 0px)' }}
                           >
                             <div></div>
                           </div>
-                        </div>
-                      </li>
-                      <li
-                        className='info-counting-item'
-                        style={{ transform: 'translate3d(0px, 300px, 0px)' }}
-                      >
-                        <div className='counting-title' aria-hidden='true'>
-                          <div
-                            className='counting-icon'
+                        </CountingIndex>
+                      </InfoCountingItem>
+                      <InfoCountingItem style={{ transform: 'translate3d(0px, 300px, 0px)' }}>
+                        <CountingTitle aria-hidden='true'>
+                          <CountingIcon
                             aria-hidden='true'
                             style={{
                               width: '12px',
@@ -445,32 +442,27 @@ export default function Home() {
                               backgroundColor: 'white',
                               transform: 'none',
                             }}
-                          ></div>
-                          <span
-                            className='counting-txt'
+                          ></CountingIcon>
+                          <CountingText
                             style={{
                               color: 'rgb(200, 200, 200)',
                               transform: 'translate3d(45px, 0px, 0px)',
                             }}
                           >
                             등록된 제품
-                          </span>
-                        </div>
-                        <div className='counting-index'>
+                          </CountingText>
+                        </CountingTitle>
+                        <CountingIndex>
                           <div
                             style={{ height: '0px', transform: 'translate3d(0px, -100px, 0px)' }}
                           >
-                            <div></div>
+                            <div />
                           </div>
-                        </div>
-                      </li>
-                      <li
-                        className='info-counting-item'
-                        style={{ transform: 'translate3d(0px, 400px, 0px)' }}
-                      >
-                        <div className='counting-title' aria-hidden='true'>
-                          <div
-                            className='counting-icon'
+                        </CountingIndex>
+                      </InfoCountingItem>
+                      <InfoCountingItem style={{ transform: 'translate3d(0px, 400px, 0px)' }}>
+                        <CountingTitle aria-hidden='true'>
+                          <CountingIcon
                             aria-hidden='true'
                             style={{
                               width: '12px',
@@ -479,27 +471,25 @@ export default function Home() {
                               backgroundColor: 'white',
                               transform: 'none',
                             }}
-                          ></div>
-                          <span
-                            className='counting-txt'
+                          ></CountingIcon>
+                          <CountingText
                             style={{
                               color: 'rgb(200, 200, 200)',
                               transform: 'translate3d(45px, 0px, 0px)',
                             }}
                           >
                             함께하는 브랜드
-                          </span>
-                        </div>
-                        <div className='counting-index'>
+                          </CountingText>
+                        </CountingTitle>
+                        <CountingIndex>
                           <div style={{ height: '0px, transform: translate3d(0px, -100px, 0px)' }}>
                             <div></div>
                           </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div
-                    className='info-image'
+                        </CountingIndex>
+                      </InfoCountingItem>
+                    </InfoCountingList>
+                  </InfoCounting>
+                  <InfoImage
                     aria-hidden='true'
                     style={{
                       opacity: 0,
@@ -508,7 +498,7 @@ export default function Home() {
                       transform: ' none',
                     }}
                   />
-                  <div
+                  <InfoImage
                     className='info-image next-image'
                     aria-hidden='true'
                     style={{
@@ -518,9 +508,9 @@ export default function Home() {
                       transform: 'none',
                     }}
                   />
-                </div>
-                <p className='info-date'>누적 다운로드: 2022년 9월 기준</p>
-              </div>
+                </InfoContent>
+                <InfoDate>누적 다운로드: 2022년 9월 기준</InfoDate>
+              </InfoInner>
             </section>
           </ProductBlock>
         </main>
@@ -761,7 +751,7 @@ const TopContents = styled.div<{ opacity?: number }>`
 
   overflow: hidden;
   background: #51ced3;
-  opacity: ${({ opacity }) => opacity || 1};
+  opacity: ${({ opacity = 1 }) => opacity};
 `
 
 const TopContentsInner = styled.div`
@@ -911,18 +901,15 @@ const InfoInner = styled.div`
     margin-right: auto;
   }
 `
-const InfoTitle = styled.div`
+const InfoTitle = styled.h3`
   ${media.desktop} {
-    /* max-width: 1070px;
+    max-width: 1070px;
     padding-left: 60px;
     margin: 0 auto;
     text-align: left;
     box-sizing: border-box;
     font-size: 52px;
-    line-height: 70px;
-    letter-spacing: -2.89px; */
-
-    font-size: 52px;
+    /* line-height: 70px; */
     line-height: 1.35;
     letter-spacing: -2.89px;
     text-align: left;
@@ -945,7 +932,7 @@ const InfoTitle = styled.div`
   letter-spacing: -1.5px;
   transition: font-size 1s, line-height 1s, letter-spacing 1s;
 `
-const InfoDesc = styled.div`
+const InfoDesc = styled.p`
   ${media.desktop} {
     max-width: 1070px;
     padding-left: 60px;
@@ -954,10 +941,19 @@ const InfoDesc = styled.div`
     box-sizing: border-box;
     padding-top: 30px;
     font-size: 18px;
-    line-height: 29px;
+    /* line-height: 29px; */
+
+    /* margin-top: 0; */
+    font-size: 18px;
+    line-height: 1.61;
+    letter-spacing: -1px;
+    text-align: left;
+
+    padding-top: 30px;
   }
   margin-top: 19px;
   line-height: 1.6;
+
   color: #212529;
   text-align: center;
   padding-top: 15px;
@@ -967,12 +963,14 @@ const InfoDesc = styled.div`
 `
 const InfoContent = styled.div`
   ${media.desktop} {
+    margin-top: 80px;
   }
   position: relative;
   margin-top: 42px;
 `
 const InfoCounting = styled.div`
   ${media.desktop} {
+    margin-top: 80px;
   }
   overflow-y: hidden;
   padding-left: 50px;
@@ -980,6 +978,8 @@ const InfoCounting = styled.div`
 `
 const InfoCountingList = styled.ul`
   ${media.desktop} {
+    padding: 50px 0;
+    height: 600px;
   }
   ${media.mobile} {
     &::after,
@@ -994,6 +994,7 @@ const InfoCountingList = styled.ul`
 `
 const InfoCountingItem = styled.li`
   ${media.desktop} {
+    left: 60px;
   }
   ${media.mobile} {
     left: 0;
@@ -1003,14 +1004,15 @@ const InfoCountingItem = styled.li`
   -webkit-user-select: none;
   -moz-user-select: none;
   user-select: none;
-  &:first-child {
+  &:first-of-type {
     padding-top: 0;
     & div {
+      // CountingIcon
       top: 3px;
     }
   }
 `
-const CountingTitle = styled.div<{ selected: boolean }>`
+const CountingTitle = styled.div<{ selected?: boolean }>`
   display: inline-flex;
   font-size: 17px;
   font-weight: 700;
@@ -1024,8 +1026,11 @@ const CountingTitle = styled.div<{ selected: boolean }>`
       color: #212529;
     `}
 `
-const CountingIcon = styled.div<{ selected: boolean }>`
+const CountingIcon = styled.div<{ selected?: boolean }>`
   ${media.desktop} {
+    left: 0;
+    width: 20px;
+    height: 20px;
   }
   position: absolute;
   top: 3px;
@@ -1051,15 +1056,16 @@ const CountingIcon = styled.div<{ selected: boolean }>`
       background-color: #5edfdf;
     `}
 `
-const CountingText = styled.span<{ selected: boolean }>`
+const CountingText = styled.span<{ countingTitleSelected?: boolean }>`
   ${media.desktop} {
+    margin: 0;
   }
   ${media.mobile} {
     vertical-align: -1px;
     margin-top: -5px;
     margin-left: -10px;
-    ${({ selected }) =>
-      selected &&
+    ${({ countingTitleSelected }) =>
+      countingTitleSelected &&
       css`
         vertical-align: -1px;
         margin-left: 0;
@@ -1069,6 +1075,8 @@ const CountingText = styled.span<{ selected: boolean }>`
 `
 const CountingIndex = styled.div`
   ${media.desktop} {
+    font-size: 85px;
+    line-height: 1.12;
   }
   overflow: hidden;
   padding-left: 25px;
@@ -1083,6 +1091,9 @@ const CountingIndex = styled.div`
 `
 const InfoImage = styled.div`
   ${media.desktop} {
+    left: 280px;
+    border-radius: 290px;
+    width: 940px;
   }
   position: absolute;
   top: 0;
@@ -1095,9 +1106,13 @@ const InfoImage = styled.div`
   border-top-left-radius: 290px;
   border-bottom-left-radius: 290px;
 `
-const NextImage = styled.div``
 const InfoDate = styled.div`
   ${media.desktop} {
+    padding-left: 60px;
+    font-size: 16px;
+    line-height: 1.81;
+    letter-spacing: -0.89px;
+    text-align: left;
   }
   margin-top: 28px;
   font-size: 15px;
@@ -1105,6 +1120,29 @@ const InfoDate = styled.div`
   letter-spacing: -0.83px;
   text-align: center;
   color: #c8c8c8;
+`
+
+const ProductReview = styled.div`
+  padding: 100px 0 0;
+`
+
+const ReviewDesc = styled.div`
+  ${media.desktop} {
+    max-width: 1070px;
+    padding-left: 60px;
+    margin: 0 auto;
+    text-align: left;
+    box-sizing: border-box;
+    padding-top: 30px;
+    font-size: 18px;
+    line-height: 29px;
+  }
+  color: #212529;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -1px;
 `
 
 // const Footer = styled.footer`

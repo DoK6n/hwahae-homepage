@@ -1554,10 +1554,6 @@ const ReviewTag = styled.span`
     font-size: 34px;
     line-height: 51px;
     letter-spacing: -1.89px;
-
-    &[aria-selected='true'] {
-      background: none;
-    }
   }
 `
 

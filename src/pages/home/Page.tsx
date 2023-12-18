@@ -903,6 +903,210 @@ const TopContentsDownloadLink = styled.button`
   line-height: 58px;
 `
 
+// TODO product-info
+const InfoInner = styled.div`
+  ${media.desktop} {
+    max-width: 1070px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+`
+const InfoTitle = styled.div`
+  ${media.desktop} {
+    /* max-width: 1070px;
+    padding-left: 60px;
+    margin: 0 auto;
+    text-align: left;
+    box-sizing: border-box;
+    font-size: 52px;
+    line-height: 70px;
+    letter-spacing: -2.89px; */
+
+    font-size: 52px;
+    line-height: 1.35;
+    letter-spacing: -2.89px;
+    text-align: left;
+  }
+  ${media.tablet} {
+    font-size: 32px;
+    line-height: 1.31;
+    letter-spacing: -1px;
+  }
+  ${media.mobile} {
+    font-size: 32px;
+    line-height: 42px;
+    letter-spacing: -1px;
+  }
+  line-height: 1.48;
+  color: #212529;
+  text-align: center;
+  font-size: 27px;
+  line-height: 40px;
+  letter-spacing: -1.5px;
+  transition: font-size 1s, line-height 1s, letter-spacing 1s;
+`
+const InfoDesc = styled.div`
+  ${media.desktop} {
+    max-width: 1070px;
+    padding-left: 60px;
+    margin: 0 auto;
+    text-align: left;
+    box-sizing: border-box;
+    padding-top: 30px;
+    font-size: 18px;
+    line-height: 29px;
+  }
+  margin-top: 19px;
+  line-height: 1.6;
+  color: #212529;
+  text-align: center;
+  padding-top: 15px;
+  font-size: 15px;
+  line-height: 24px;
+  letter-spacing: -1px;
+`
+const InfoContent = styled.div`
+  ${media.desktop} {
+  }
+  position: relative;
+  margin-top: 42px;
+`
+const InfoCounting = styled.div`
+  ${media.desktop} {
+  }
+  overflow-y: hidden;
+  padding-left: 50px;
+  margin-left: -50px;
+`
+const InfoCountingList = styled.ul`
+  ${media.desktop} {
+  }
+  ${media.mobile} {
+    &::after,
+    &::before {
+      content: none;
+    }
+  }
+  position: relative;
+  padding: 50px 0;
+  height: 440px;
+  box-sizing: border-box;
+`
+const InfoCountingItem = styled.li`
+  ${media.desktop} {
+  }
+  ${media.mobile} {
+    left: 0;
+  }
+  position: absolute;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  &:first-child {
+    padding-top: 0;
+    & div {
+      top: 3px;
+    }
+  }
+`
+const CountingTitle = styled.div<{ selected: boolean }>`
+  display: inline-flex;
+  font-size: 17px;
+  font-weight: 700;
+  line-height: 1.76;
+  letter-spacing: -1.94px;
+  color: #c8c8c8;
+  ${({ selected }) =>
+    selected &&
+    css`
+      letter-spacing: -1.61px;
+      color: #212529;
+    `}
+`
+const CountingIcon = styled.div<{ selected: boolean }>`
+  ${media.desktop} {
+  }
+  position: absolute;
+  top: 3px;
+  left: 14px;
+  content: '';
+  display: inline-flex;
+  width: 12px;
+  height: 12px;
+  border-style: solid;
+  border-color: #c8c8c8;
+  box-sizing: border-box;
+  border-radius: 50%;
+  z-index: -1;
+
+  ${({ selected }) =>
+    selected &&
+    css`
+      top: 30px;
+      left: -45px;
+      width: 130px;
+      height: 130px;
+      border: 0;
+      background-color: #5edfdf;
+    `}
+`
+const CountingText = styled.span<{ selected: boolean }>`
+  ${media.desktop} {
+  }
+  ${media.mobile} {
+    vertical-align: -1px;
+    margin-top: -5px;
+    margin-left: -10px;
+    ${({ selected }) =>
+      selected &&
+      css`
+        vertical-align: -1px;
+        margin-left: 0;
+      `}
+  }
+  vertical-align: -1px;
+`
+const CountingIndex = styled.div`
+  ${media.desktop} {
+  }
+  overflow: hidden;
+  padding-left: 25px;
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: #212529;
+  pointer-events: none;
+  & > span {
+    display: inline-block;
+  }
+`
+const InfoImage = styled.div`
+  ${media.desktop} {
+  }
+  position: absolute;
+  top: 0;
+  left: 140px;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-size: cover;
+  background-position: 50%;
+  border-top-left-radius: 290px;
+  border-bottom-left-radius: 290px;
+`
+const NextImage = styled.div``
+const InfoDate = styled.div`
+  ${media.desktop} {
+  }
+  margin-top: 28px;
+  font-size: 15px;
+  line-height: 1.93;
+  letter-spacing: -0.83px;
+  text-align: center;
+  color: #c8c8c8;
+`
+
 // const Footer = styled.footer`
 //   background: #f4f8f8;
 //   padding: 60px 20px 50px;

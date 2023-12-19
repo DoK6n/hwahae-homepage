@@ -81,6 +81,7 @@ export default function Home() {
   const [topContentsSubDescSecond, setTopContentsSubDescSecond] = useState({ opacity: 0, y: 0 })
   const [topContentsSubDescThird, setTopContentsSubDescThird] = useState({ opacity: 0, y: 0 })
   const [topContentsOpacity, setTopContentsOpacity] = useState(1)
+  const [sticky, setSticky] = useState(false)
 
   const handleScroll = () => {
     if (window.scrollY > 0) {
@@ -192,6 +193,17 @@ export default function Home() {
     } else {
       const opacity = 1 - scrollY / TOP_CONTENTS_OPASITY_RANGE.endScrollY
       setTopContentsOpacity(Math.max(opacity, 0)) // opacity가 0보다 작아지지 않도록
+    }
+
+    // Sticky App Download Button
+    const TOP_CONTENTS_STICKY_BUTTON_RANGE = {
+      startScrollY: 100,
+    } as const
+
+    if (window.scrollY >= TOP_CONTENTS_STICKY_BUTTON_RANGE.startScrollY) {
+      setSticky(true)
+    } else {
+      setSticky(false)
     }
   }
 
@@ -333,8 +345,12 @@ export default function Home() {
                       <ScrollText>컨텐츠 스크롤</ScrollText>
                     </ScrollButton>
                   </TopContentsScroll>
-                  <TopContentsDownload>
-                    <TopContentsDownloadLink type='button' onClick={handleAppDownloadClick}>
+                  <TopContentsDownload sticky={sticky}>
+                    <TopContentsDownloadLink
+                      type='button'
+                      sticky={sticky}
+                      onClick={handleAppDownloadClick}
+                    >
                       앱다운로드
                     </TopContentsDownloadLink>
                   </TopContentsDownload>
@@ -1139,7 +1155,7 @@ const ScrollText = styled.span`
   text-align: left;
 `
 
-const TopContentsDownload = styled.div`
+const TopContentsDownload = styled.div<{ sticky?: boolean }>`
   ${media.mobile} {
     bottom: 88px;
   }
@@ -1153,9 +1169,19 @@ const TopContentsDownload = styled.div`
   box-sizing: border-box;
   transition-duration: 0.8s;
   pointer-events: all;
+  ${({ sticky }) =>
+    sticky &&
+    css`
+      position: fixed;
+      z-index: 10;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      padding: 0;
+    `}
 `
 
-const TopContentsDownloadLink = styled.button`
+const TopContentsDownloadLink = styled.button<{ sticky?: boolean }>`
   display: block;
   width: 100%;
   height: 58px;
@@ -1168,6 +1194,12 @@ const TopContentsDownloadLink = styled.button`
   font-weight: 700;
   text-align: center;
   line-height: 58px;
+  ${({ sticky }) =>
+    sticky &&
+    css`
+      width: 100%;
+      border-radius: 0;
+    `}
 `
 
 // product-info

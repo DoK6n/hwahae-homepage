@@ -6,7 +6,6 @@ import { isMatchingBreakpoint } from '../../lib/isMatchingBreakpoint'
 import { useEffect, useState } from 'react'
 import HamburgerIcon from './components/HamburgerIcon'
 import CloseIcon from './components/CloseIcon'
-import '../../assets/origin-hwahae.css'
 import Footer from './components/Footer'
 
 const navList = [

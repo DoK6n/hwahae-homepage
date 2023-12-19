@@ -1,43 +1,57 @@
+import styled from '@emotion/styled'
+import { media } from '../../../lib/media'
+
 export default function Footer() {
   return (
-    <footer className='footer' style={{ marginTop: 100 }}>
-      <div className='footer-inner'>
-        <em className='footer-logo'>
+    <FooterBlock style={{ marginTop: 100 }}>
+      <FooterInner>
+        <FooterLogo>
           <span className='blind'>BIRD VIEW</span>
-        </em>
-        <div className='footer-address'>
+        </FooterLogo>
+        <FooterAddress>
           <address>서울특별시 서초구 서초대로 396, 19층(서초동, 강남빌딩)</address>
-          <p className='footer-address-desc'>
-            <i className='footer-address-txt'>사업자등록번호</i>232-81-00912
-          </p>
-        </div>
-        <div className='footer-contents'>
-          <ul className='footer-contents-list'>
-            <li className='footer-contents-item'>
-              <i className='footer-contents-txt'>대표</i>이웅
-            </li>
-            <li className='footer-contents-item'>
-              <i className='footer-contents-txt'>대표번호</i>1811-4472
-            </li>
-          </ul>
-          <ul className='footer-contents-list'>
-            <li className='footer-contents-item'>문의하기</li>
-            <li className='footer-contents-item'>광고/제휴문의</li>
-            <li className='footer-contents-item'>파트너센터</li>
-          </ul>
-        </div>
-        <div className='footer-privacy privacy'>
-          <ul className='footer-contents-list'>
-            <li className='footer-contents-item'>
-              <b>개인정보 처리방침</b>
-            </li>
-            <li className='footer-contents-item'>
-              <b>CCTV 영상정보 처리기기 관리 방침</b>
-            </li>
-            <li className='footer-contents-item'>윤리경영</li>
-          </ul>
-          <p className='footer-privacy-desc'>© BIRDVIEW. ALL RIGHTS RESERVED.</p>
-        </div>
+          <FooterAddressDesc>
+            <FooterAddressText>사업자등록번호</FooterAddressText>232-81-00912
+          </FooterAddressDesc>
+        </FooterAddress>
+        <FooterContents>
+          <FooterContentsList>
+            <FooterContentsItem>
+              <FooterInfoText>대표</FooterInfoText>이웅
+            </FooterContentsItem>
+            <FooterContentsItem>
+              <FooterInfoText>대표번호</FooterInfoText>1811-4472
+            </FooterContentsItem>
+          </FooterContentsList>
+          <FooterContentsList>
+            <FooterContentsItem>문의하기</FooterContentsItem>
+            <FooterContentsItem>광고/제휴문의</FooterContentsItem>
+            <FooterContentsItem>파트너센터</FooterContentsItem>
+          </FooterContentsList>
+        </FooterContents>
+        <FooterPrivacy className='footer-privacy privacy'>
+          <a
+            href='https://static.hwahae.co.kr/docs/terms/homepage/privacy-policy.html'
+            target='_blank'
+            rel='noopener noreferrer'
+            style={{ fontWeight: 'bold' }}
+          >
+            개인정보 처리방침
+          </a>
+
+          {/* <b>개인정보 처리방침</b> */}
+          <a
+            href='https://static.hwahae.co.kr/docs/terms/homepage/video.html'
+            target='_blank'
+            rel='noopener noreferrer'
+            style={{ fontWeight: 'bold' }}
+          >
+            CCTV 영상정보 처리기기 관리 방침
+          </a>
+          {/* <b>CCTV 영상정보 처리기기 관리 방침</b> */}
+          <a>윤리경영</a>
+          <FooterPrivacyDesc>© BIRDVIEW. ALL RIGHTS RESERVED.</FooterPrivacyDesc>
+        </FooterPrivacy>
         <div>
           <ul style={{ display: 'flex', gap: 10, marginTop: 20 }}>
             <li>
@@ -46,8 +60,8 @@ export default function Footer() {
                 target='_blank'
                 rel='noopener noreferrer'
                 style={{ display: 'block', width: '36px', height: '36px' }}
+                data-link-name='youtube'
               >
-                <span className='blind'>youtube</span>
                 <svg
                   width={36}
                   height={36}
@@ -69,8 +83,8 @@ export default function Footer() {
                 href='https://www.instagram.com/hwahae_official'
                 target='_blank'
                 rel='noopener noreferrer'
+                data-link-name='instagram'
               >
-                <span className='blind'>instagram</span>
                 <svg
                   width={36}
                   height={36}
@@ -92,8 +106,8 @@ export default function Footer() {
                 href='https://twitter.com/hwahae_official'
                 target='_blank'
                 rel='noopener noreferrer'
+                data-link-name='twitter'
               >
-                <span className='blind'>twitter</span>
                 <svg
                   width={36}
                   height={36}
@@ -115,8 +129,8 @@ export default function Footer() {
                 href='https://kr.linkedin.com/company/birdview-kr'
                 target='_blank'
                 rel='noopener noreferrer'
+                data-link-name='linkedin'
               >
-                <span className='blind'>linkedin</span>
                 <svg
                   width={36}
                   height={36}
@@ -138,8 +152,8 @@ export default function Footer() {
                 href='https://post.naver.com/my.naver?memberNo=23854098'
                 target='_blank'
                 rel='noopener noreferrer'
+                data-link-name='naver'
               >
-                <span className='blind'>naver</span>
                 <svg
                   width={36}
                   height={36}
@@ -157,98 +171,118 @@ export default function Footer() {
             </li>
           </ul>
         </div>
-      </div>
-    </footer>
+      </FooterInner>
+    </FooterBlock>
   )
 }
 
-// const Footer = styled.footer`
-//   background: #f4f8f8;
-//   padding: 60px 20px 50px;
-//   color: #212529;
-//   font-size: 13px;
-//   letter-spacing: -0.72px;
+const FooterBlock = styled.footer`
+  background: #f4f8f8;
+  padding: 60px 20px 50px;
+  color: #212529;
+  font-size: 13px;
+  letter-spacing: -0.72px;
 
-//   ${media.tablet} {
-//     padding: 75px 20px;
-//     letter-spacing: -0.83px;
-//   }
-// `;
+  ${media.tablet} {
+    padding: 75px 20px;
+    letter-spacing: -0.83px;
+  }
+`
 
-// const FooterLogo = styled.div`
-//   display: block;
-//   width: 110px;
-//   height: 13px;
-//   background: url(https://hwahae-homepage.s3.ap-northeast-2.amazonaws.com/images/ftr_logo.png) no-repeat 0 0;
-//   background-size: cover;
-// `;
+const FooterInner = styled.div`
+  ${media.tablet} {
+    position: relative;
+    max-width: 1070px;
+    margin: 0 auto;
+    font-size: 15px;
+  }
+`
 
-// const FooterAddress = styled.div`
-//   margin-top: 27px;
+const FooterLogo = styled.em`
+  display: block;
+  width: 110px;
+  height: 13px;
+  background: url(https://hwahae-homepage.s3.ap-northeast-2.amazonaws.com/images/ftr_logo.png)
+    no-repeat 0 0;
+  background-size: cover;
+`
 
-//   ${media.tablet} {
-//     display: flex;
-//   }
-// `;
+const FooterAddress = styled.div`
+  margin-top: 27px;
 
-// const FooterAddressDesc = styled.div`
-//   margin-top: 7px;
+  ${media.tablet} {
+    display: flex;
+  }
+`
 
-//   ${media.tablet} {
-//     margin-top: 0;
+const FooterAddressDesc = styled.p`
+  margin-top: 7px;
 
-//     &:before {
-//       content: '';
-//       display: inline-block;
-//       width: 1px;
-//       height: 10px;
-//       margin: 0 20px;
-//       background: #c9cccc;
-//     }
-//   }
-// `;
+  ${media.tablet} {
+    margin-top: 0;
 
-// const FooterAddressTxt = styled.span`
-//   padding-right: 9px;
-//   color: #727777;
-// `;
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 1px;
+      height: 10px;
+      margin: 0 20px;
+      background: #c9cccc;
+    }
+  }
+`
 
-// const FooterContentsList = styled.div`
-//   display: flex;
-//   align-items: center;
-//   padding-top: 7px;
+const FooterAddressText = styled.i`
+  padding-right: 9px;
+  color: #727777;
+`
 
-//   &:last-child {
-//     padding-top: 47px;
-//   }
+const FooterContents = styled.div`
+  ${media.tablet} {
+    display: flex;
+    padding-top: 7px;
+  }
+`
 
-//   ${media.tablet} {
-//     padding-top: 0 !important;
-//   }
-// `;
+const FooterContentsList = styled.ul`
+  display: flex;
+  align-items: center;
+  padding-top: 7px;
 
-// const FooterContentsItem = styled.div`
-//   display: flex;
-//   align-items: center;
+  ${media.tablet} {
+    padding-top: 0 !important;
 
-//   &:not(:last-child):after {
-//     content: '';
-//     display: inline-block;
-//     width: 1px;
-//     height: 10px;
-//     margin: 0 20px;
-//     background: #c9cccc;
-//   }
+    &:last-child {
+      padding-top: 47px;
+      & div[data-component='footer-contents-item'] {
+        font-weight: 400;
+      }
+    }
+  }
+`
 
-//   ${media.tablet} {
-//     font-weight: 400;
-//   }
-// `;
+const FooterContentsItem = styled.li`
+  display: flex;
+  align-items: center;
 
-// const FooterInfoTxt = styled.span`
-//   padding-right: 9px;
-//   color: #727777;
-// `;
+  &:not(:last-child):after {
+    content: '';
+    display: inline-block;
+    width: 1px;
+    height: 10px;
+    margin: 0 20px;
+    background: #c9cccc;
+  }
+
+  ${media.tablet} {
+    font-weight: 400;
+  }
+`
+
+const FooterInfoText = styled.i`
+  padding-right: 9px;
+  color: #727777;
+`
 
 // const FooterPrivacyLink = styled.a`
 //   display: inline-block;
@@ -258,8 +292,14 @@ export default function Footer() {
 //   &:hover {
 //     text-decoration: none;
 //   }
-// `;
+// `
 
-// const FooterPrivacyDesc = styled.div`
-//   padding-top: 8px;
-// `;
+const FooterPrivacy = styled.div`
+  ${media.tablet} {
+    padding-top: 20px;
+  }
+`
+
+const FooterPrivacyDesc = styled.div`
+  padding-top: 8px;
+`
